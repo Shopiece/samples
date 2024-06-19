@@ -1,31 +1,8 @@
 "use client"
 
-import { postAction } from "@/app/action";
+import { getToken } from "@/app/service";
 import { useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
-
-async function getToken(clientId: string, email: string, password: string) {
-  const url = `https://stage.api.shopiece.io/login/user`
-
-  console.log(`>>> postAction clientId, email, password`);
-  console.log(clientId, email, password);
-
-  const response = await fetch(url, {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Client': clientId,
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    })
-  });
-
-  return response.json();
-}
+import { useFormStatus } from "react-dom";
 
 function Button({ clientId, email, password, handleResponse }: any) {
   const status = useFormStatus();
@@ -45,7 +22,6 @@ function Button({ clientId, email, password, handleResponse }: any) {
 }
 
 export default function Home() {
-  // const [result, dispatch] = useFormState(postAction, {});
   const [clientId, setClientId] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
